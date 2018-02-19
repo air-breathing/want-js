@@ -1,6 +1,6 @@
 {
   "name": "want-js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Tool for quick opening services",
   "main": "./src/index.js",
   "scripts": {
