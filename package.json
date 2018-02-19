@@ -1,5 +1,5 @@
 {
-  "name": "want-js",
+  "name": "want-js-helper",
   "version": "1.0.1",
   "description": "Tool for quick opening services",
   "main": "./src/index.js",

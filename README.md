@@ -1,4 +1,4 @@
-# want-js
+# want-js-helper
 [![Build Status](https://travis-ci.org/air-breathing/want-js.svg?branch=master)](https://travis-ci.org/air-breathing/want-js)
 Tool for quick opening services
 
