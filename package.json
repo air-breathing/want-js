@@ -40,6 +40,10 @@
     "nyc": "^11.4.1",
     "proxyquire": "^1.8.0"
   },
+  "files": [
+    "src",
+    "libs"
+  ],
   "bin": {
     "want": "./src/index.js"
   }
