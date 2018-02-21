@@ -21,9 +21,9 @@ class ArgvExecutor {
         this.broCfg = broCfg;
     }
 
-    exec() {
+    async exec() {
         if (this.command) {
-            this._execCommand();
+            await this._execCommand();
         } else {
             this._execArgv();
         }

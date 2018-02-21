@@ -66,9 +66,9 @@ test('Check correctness of options for other api with prefix', async t => {
 
 test('Check static method getBranchName', async t => {
     const GitApi = proxyquire('../src/git-api', {
-        'simple-git/promise': function () {
+        'simple-git/promise': () => {
             return {
-                revparse: async function () {
+                revparse: async () => {
                     return ' some_branch_name\n';
                 }
             };
@@ -80,7 +80,7 @@ test('Check static method getBranchName', async t => {
 
 test('Check static method getParsedRemoteOriginUrl with git@github.com', async t => {
     let GitApi = proxyquire('../src/git-api', {
-        'git-remote-origin-url': function () {
+        'git-remote-origin-url': () => {
             return 'git@github.com:test-org/want-js-plugin.test.git';
         }
     });
@@ -97,7 +97,7 @@ test('Check static method getParsedRemoteOriginUrl with git@github.com', async t
 
 test('Check static method getParsedRemoteOriginUrl with https://github.com', async t => {
     let GitApi = proxyquire('../src/git-api', {
-        'git-remote-origin-url': function () {
+        'git-remote-origin-url': () => {
             return 'https://github.com/test-org/want-js-plugin.test.git';
         }
     });
@@ -114,7 +114,7 @@ test('Check static method getParsedRemoteOriginUrl with https://github.com', asy
 
 test('Check static method getParsedRemoteOriginUrl with https://username@bitbucket.org', async t => {
     let GitApi = proxyquire('../src/git-api', {
-        'git-remote-origin-url': function () {
+        'git-remote-origin-url': () => {
             return 'https://username@bitbucket.org/test-org/want-js-plugin.test.git';
         }
     });
@@ -131,7 +131,7 @@ test('Check static method getParsedRemoteOriginUrl with https://username@bitbuck
 
 test('Check static method getParsedRemoteOriginUrl with git@bitbucket.org', async t => {
     let GitApi = proxyquire('../src/git-api', {
-        'git-remote-origin-url': function () {
+        'git-remote-origin-url': () => {
             return 'git@bitbucket.org:test-org/want-js-plugin.test.git';
         }
     });
@@ -148,7 +148,7 @@ test('Check static method getParsedRemoteOriginUrl with git@bitbucket.org', asyn
 
 test('Check static method getParsedRemoteOriginUrl with git@github.any-site.org', async t => {
     let GitApi = proxyquire('../src/git-api', {
-        'git-remote-origin-url': function () {
+        'git-remote-origin-url': () => {
             return 'git@github.any-site.org:test-org/want-js-plugin.test.git';
         }
     });
@@ -165,9 +165,9 @@ test('Check static method getParsedRemoteOriginUrl with git@github.any-site.org'
 
 test('Check static method getParsedRemoteUrls', async t => {
     const GitApi = proxyquire('../src/git-api', {
-        'simple-git/promise': function () {
+        'simple-git/promise': () => {
             return {
-                getRemotes: async function () {
+                getRemotes: async () => {
                     return [{
                         name: 'origin',
                         refs: {
@@ -258,9 +258,9 @@ test('Check method getPullRequstsNumbers', async t => {
     };
 
     const GitApi = proxyquire('../src/git-api', {
-        'simple-git/promise': function () {
+        'simple-git/promise': () => {
             return {
-                getRemotes: async function () {
+                getRemotes: async () => {
                     return [{
                         name: 'origin',
                         refs: {
@@ -275,13 +275,13 @@ test('Check method getPullRequstsNumbers', async t => {
                         }
                     }];
                 },
-                revparse: async function () {
+                revparse: async () => {
                     return ' some_branch_name\n';
                 }
             };
         },
         '@octokit/rest': FakeGitHub,
-        'git-remote-origin-url': function () {
+        'git-remote-origin-url': () => {
             return 'https://github.com/user/want-js-plugin.test.git';
         }
     });
