@@ -9,7 +9,9 @@ function init() {
     const lookuper = new Lookuper(configName);
     let executor;
 
-    const broCfg = lookuper.lookup(process.cwd());
+    const broCfg = lookuper
+        .lookup(process.cwd())
+        .lookupNPM(process.cwd(), 'want-js-plugin.');
 
     broCfg.commands = keys(broCfg.commandParams);
 

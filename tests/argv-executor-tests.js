@@ -51,7 +51,7 @@ test('Check arg adding in properties', t => {
     t.falsy(argvExecutor.argv);
 });
 
-test('Check lookup method', t => {
+test('Check lookup method', async t => {
     const originalConsoleLog = console.log;
     console.log = url => {
         t.is(url, 'https://yandex.ru/a');
@@ -69,7 +69,7 @@ test('Check lookup method', t => {
     });
 
     const argvExecutor = new ArgvExecutor(config);
-    argvExecutor.exec();
+    await argvExecutor.exec();
     console.log = originalConsoleLog;
 });
 
