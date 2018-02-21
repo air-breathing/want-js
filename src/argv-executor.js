@@ -9,6 +9,8 @@ const keys = require('lodash.keys');
 
 const HelperError = require('../libs/helper-error');
 
+const GitApi = require('./git-api');
+
 class ArgvExecutor {
     constructor(broCfg) {
         broCfg.commands.push(null);
@@ -19,15 +21,15 @@ class ArgvExecutor {
         this.broCfg = broCfg;
     }
 
-    exec() {
+    async exec() {
         if (this.command) {
-            this._execCommand();
+            await this._execCommand();
         } else {
             this._execArgv();
         }
     }
 
-    _execCommand() {
+    async _execCommand() {
         const { commandParams } = this.broCfg;
         let commandCfg = commandParams[this.command];
         if (!commandCfg) {
@@ -35,15 +37,8 @@ class ArgvExecutor {
         }
 
         const getUrl = require(commandCfg.executor);
-        const result = getUrl(commandCfg);
-        // TODO: есть ли более лучший способ отличить промис от результата обычной функции?
-        if (typeof result.then === 'function') {
-            result.then(url => {
-                ArgvExecutor._open(url);
-            });
-        } else {
-            ArgvExecutor._open(result);
-        }
+        const urls = await getUrl(commandCfg, GitApi);
+        ArgvExecutor._open(urls);
     }
 
     static _open(url) {

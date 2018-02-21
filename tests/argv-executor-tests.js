@@ -51,7 +51,7 @@ test('Check arg adding in properties', t => {
     t.falsy(argvExecutor.argv);
 });
 
-test('Check lookup method', t => {
+test('Check lookup method', async t => {
     const originalConsoleLog = console.log;
     console.log = url => {
         t.is(url, 'https://yandex.ru/a');
@@ -63,13 +63,13 @@ test('Check lookup method', t => {
         'user/a.js': getFunc('a'),
         'user/b.js': getFunc('b'),
         'user/c.js': getFunc('c'),
-        opn: function (url) {
+        opn: url => {
             console.log(url);
         }
     });
 
     const argvExecutor = new ArgvExecutor(config);
-    argvExecutor.exec();
+    await argvExecutor.exec();
     console.log = originalConsoleLog;
 });
 
@@ -89,7 +89,7 @@ test('Check help', t => {
     console.log = originalConsoleLog;
 });
 
-test('Check help', t => {
+test('Check help', async t => {
     const originalConsoleLog = console.log;
     console.log = help => {
         t.true(/a, abba/.test(help), 'Error with a');
@@ -104,5 +104,5 @@ test('Check help', t => {
     });
 
     const argvExecutor = new ArgvExecutor(config);
-    argvExecutor.exec();
+    await argvExecutor.exec();
 });
