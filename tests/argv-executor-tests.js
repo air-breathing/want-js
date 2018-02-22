@@ -3,6 +3,10 @@ import proxyquire from 'proxyquire';
 
 const config = {
     commands: ['a', 'b', 'abba', 'bucket', 'c'],
+    aliases: {
+        abba: 'a',
+        bucket: 'b'
+    },
     commandParams: {
         a: {
             executor: `user/a.js`,

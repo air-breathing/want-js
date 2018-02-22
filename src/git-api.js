@@ -60,7 +60,7 @@ class GitApi {
         this.github.authenticate(authOptions);
     }
 
-    async getPullRequstsNumbers() {
+    async getPullRequestsNumbers() {
         await this._connectGithub();
         const githubParsedUrls = await GitApi.getParsedRemoteUrls();
         const githubOriginUrl = await GitApi.getParsedRemoteOriginUrl();

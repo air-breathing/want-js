@@ -287,7 +287,7 @@ test('Check method getPullRequstsNumbers', async t => {
     });
 
     const gitApi = new GitApi('github.com');
-    const actual = await gitApi.getPullRequstsNumbers();
+    const actual = await gitApi.getPullRequestsNumbers();
     const expected = [
         { owner: 'user', number: 1 },
         { owner: 'user', number: 2 },

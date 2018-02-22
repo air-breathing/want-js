@@ -5,16 +5,28 @@ const ArgvExecutor = require('./argv-executor');
 const Lookuper = require('config-lookuper');
 const configName = '.want-js.config.js';
 
-function init() {
+async function init() {
     const lookuper = new Lookuper(configName);
     let executor;
 
-    const broCfg = lookuper
+    const broCfg = (await lookuper
         .lookup(process.cwd())
         .lookupNPM(process.cwd(), 'want-js-plugin.')
+        .lookupGlobalModules('want-js-plugin.'))
         .resultConfig;
 
     broCfg.commands = keys(broCfg.commandParams);
+    broCfg.aliases = {};
+
+    const aliases = broCfg.commands.map(command => {
+        const currentAliases = broCfg.commandParams[command].aliases;
+        currentAliases.forEach(alias => {
+            broCfg.aliases = { [alias]: command };
+        });
+        return currentAliases;
+    });
+
+    broCfg.commands = Array.prototype.concat.apply(broCfg.commands, aliases);
 
     try {
         executor = new ArgvExecutor(broCfg);

@@ -16,7 +16,7 @@ class ArgvExecutor {
         broCfg.commands.push(null);
         const { command, argv } = commandLineCommands(broCfg.commands);
         broCfg.commands.pop();
-        this.command = command;
+        this.command = broCfg.aliases[command] || command;
         this.argv = argv;
         this.broCfg = broCfg;
     }
@@ -31,6 +31,7 @@ class ArgvExecutor {
 
     async _execCommand() {
         const { commandParams } = this.broCfg;
+
         let commandCfg = commandParams[this.command];
         if (!commandCfg) {
             throw new HelperError('There is no cfg for command.');
