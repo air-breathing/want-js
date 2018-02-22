@@ -11,7 +11,8 @@ function init() {
 
     const broCfg = lookuper
         .lookup(process.cwd())
-        .lookupNPM(process.cwd(), 'want-js-plugin.');
+        .lookupNPM(process.cwd(), 'want-js-plugin.')
+        .resultConfig;
 
     broCfg.commands = keys(broCfg.commandParams);
 
