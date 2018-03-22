@@ -21,7 +21,7 @@ async function init() {
     const aliases = broCfg.commands.map(command => {
         const currentAliases = broCfg.commandParams[command].aliases;
         currentAliases.forEach(alias => {
-            broCfg.aliases = { [alias]: command };
+            broCfg.aliases[alias] = command;
         });
         return currentAliases;
     });
@@ -30,8 +30,12 @@ async function init() {
 
     try {
         executor = new ArgvExecutor(broCfg);
-        executor.exec();
+        executor.exec().catch(logError);
     } catch (e) {
+        logError(e);
+    }
+
+    function logError(e) {
         if (e.type === 'HelperError') {
             console.error('\x1b[31m', e.message);
         } else {
