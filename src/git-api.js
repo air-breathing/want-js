@@ -13,6 +13,10 @@ class GitApi {
         return (await git().revparse(['--abbrev-ref', 'HEAD'])).trim();
     }
 
+    static async getCommit() {
+        return (await git().revparse(['HEAD'])).trim();
+    }
+
     static async getParsedRemoteOriginUrl() {
         const url = await gitRemoteOriginUrl();
         return GitApi._parseRemote(url);

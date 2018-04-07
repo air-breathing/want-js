@@ -1,5 +1,6 @@
 import test from 'ava';
 import proxyquire from 'proxyquire';
+import sinon from 'sinon';
 
 let COMMON_GITHUB_OAUTH_TOKEN;
 const TOKEN = 'token';
@@ -65,17 +66,33 @@ test('Check correctness of options for other api with prefix', async t => {
 });
 
 test('Check static method getBranchName', async t => {
+    const revParseStub = sinon.stub().resolves(' some_branch_name\n');
     const GitApi = proxyquire('../src/git-api', {
         'simple-git/promise': () => {
             return {
-                revparse: async () => {
-                    return ' some_branch_name\n';
-                }
+                revparse: revParseStub
             };
         }
     });
     const actual = await GitApi.getBranchName();
+    t.is(revParseStub.callCount, 1, 'Execute git.revparse must be once called');
+    t.deepEqual(revParseStub.getCall(0).args[0], ['--abbrev-ref', 'HEAD'], 'Execute git.revparse must be called with one arguments: --abbrev-ref HEAD');
     t.is(actual, 'some_branch_name', 'Branch name must be without whitespace symbols');
+});
+
+test('Check static method getBranchName', async t => {
+    const revParseStub = sinon.stub().resolves('1234567890\n');
+    const GitApi = proxyquire('../src/git-api', {
+        'simple-git/promise': () => {
+            return {
+                revparse: revParseStub
+            };
+        }
+    });
+    const actual = await GitApi.getCommit();
+    t.is(revParseStub.callCount, 1, 'Execute git.revparse must be once called');
+    t.deepEqual(revParseStub.getCall(0).args[0], ['HEAD'], 'Execute git.revparse must be called with one arguments: HEAD');
+    t.is(actual, '1234567890', 'Branch name must be without whitespace symbols');
 });
 
 test('Check static method getParsedRemoteOriginUrl with git@github.com', async t => {
