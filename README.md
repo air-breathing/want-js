@@ -1,13 +1,14 @@
-# want-js-helper
-[![Build Status](https://travis-ci.org/air-breathing/want-js.svg?branch=master)](https://travis-ci.org/air-breathing/want-js)
+# want-js-helper [![Build Status](https://travis-ci.org/air-breathing/want-js.svg?branch=master)](https://travis-ci.org/air-breathing/want-js)
+
 Tool for quick opening services
 
 Install and write your config for quick opening services.
 
 For example:
+
 0. Install in project `npm i want-js --save` or `npm i want-js --global`.
 1. Create in your project or home directory file `.want-js.config.js`;
-2. Describe commands that you want to open in config, for example, you want to open Github's page of project; 
+2. Describe commands that you want to open in config, for example, you want to open Github's page of project;
 
 `.want-js.config.js`
 ```js
@@ -34,7 +35,7 @@ module.exports = {
 
 In this example you must describe `Object` with property `commandParams`. `commandParams` is `Object` which consists of different commands.
 
-A name of property is one of the names some commands. 
+A name of property is one of the names some commands.
 For every command describes executor, we must write path in configs to command's js-file.
 Also we can add aliases of command and description in readme.
 
